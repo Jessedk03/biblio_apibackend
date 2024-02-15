@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 use App\Models\Book;
-use http\Client\Request;
 
 class BookController extends Controller
 {
@@ -50,11 +49,12 @@ class BookController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Book $book)
+    public function show($id)
     {
-        //
-        return response(['books' => Book::orderBy('created_at', 'asc')->get()], 200);
+        $book = Book::findOrFail($id);
+        return response(['book' => $book], 200);
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -67,17 +67,18 @@ class BookController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateBookRequest $request, Book $book)
+    public function update(UpdateBookRequest $request, $id)
     {
+        $book = Book::findOrFail($id);
         $book->update([
             'userName' => $request->get('userName'),
         ]);
-
         return response([
             'message' => 'Book successfully updated',
-            'book' => $book
+            'book' => $request->all()
         ], 200);
     }
+
 
     /**
      * Remove the specified resource from storage.

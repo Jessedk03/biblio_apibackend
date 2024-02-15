@@ -13,10 +13,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Book::factory(1)->create([
-            'title' => 'Test Data',
-            'author' => 'Test Author',
-            'isbnNumber' => '1234567890',
+        Book::factory(100)->create([
+            'title' => 'Ronald weasley the story',
+            'author' => 'J.K. Rowling',
+            'isbnNumber' => '9780747532743',
             'userName' => null,
         ]);
     }
